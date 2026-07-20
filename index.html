@@ -1,36 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Flying Bird Game - Hand Gesture</title>
+    <title>Flying Bird Hand Gesture Game</title>
 
     <link rel="stylesheet" href="style.css">
 
 </head>
+
 <body>
 
-    <h1>Flying Bird Game</h1>
+    <h1>🐦 Flying Bird Hand Gesture Game</h1>
 
     <div class="container">
 
         <!-- Game Canvas -->
-        <canvas id="gameCanvas"></canvas>
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
 
         <!-- Webcam -->
-        <video id="video" autoplay playsinline></video>
+        <div class="cameraBox">
+
+            <video
+                id="video"
+                width="320"
+                height="240"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+            <p>Raise your hand to fly</p>
+
+        </div>
 
     </div>
 
     <!-- MediaPipe -->
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
 
+    <!-- Game -->
     <script src="script.js"></script>
 
 </body>
+
 </html>
