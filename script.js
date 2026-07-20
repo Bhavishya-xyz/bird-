@@ -151,9 +151,6 @@ function gameLoop() {
 
 }
 
-gameLoop();
-
-}
 // ============================================
 // script.js - Part 2 (M4)
 // Pipes + Collision + Restart
@@ -302,5 +299,4 @@ document.addEventListener("keydown", function (e) {
     }
 
 });
-
 gameLoop();
