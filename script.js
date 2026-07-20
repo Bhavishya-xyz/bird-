@@ -28,43 +28,39 @@ let gameOver = false;
 // =====================================
 // Draw Background
 // =====================================
-
 function drawBackground() {
 
-    ctx.fillStyle = "#70C5CE";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (bgImg.complete) {
+
+        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
+
+    } else {
+
+        ctx.fillStyle = "#70C5CE";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    }
 
 }
-
 // =====================================
 // Draw Bird
 // =====================================
 
 function drawBird() {
 
-    // Body
-    ctx.fillStyle = "yellow";
-    ctx.beginPath();
-    ctx.arc(bird.x, bird.y, bird.radius, 0, Math.PI * 2);
-    ctx.fill();
+    if (birdImg.complete) {
 
-    // Eye
-    ctx.fillStyle = "black";
-    ctx.beginPath();
-    ctx.arc(bird.x + 6, bird.y - 5, 3, 0, Math.PI * 2);
-    ctx.fill();
+        ctx.drawImage(
+            birdImg,
+            bird.x - bird.radius,
+            bird.y - bird.radius,
+            bird.radius * 2,
+            bird.radius * 2
+        );
 
-    // Beak
-    ctx.fillStyle = "orange";
-    ctx.beginPath();
-    ctx.moveTo(bird.x + 18, bird.y);
-    ctx.lineTo(bird.x + 30, bird.y - 5);
-    ctx.lineTo(bird.x + 30, bird.y + 5);
-    ctx.closePath();
-    ctx.fill();
+    }
 
 }
-
 // =====================================
 // Update Bird
 // =====================================
@@ -238,49 +234,42 @@ function updatePipes() {
 // =====================================
 
 function drawPipes() {
+function drawPipes() {
 
     for (let pipe of pipes) {
 
-        // Pipe Color
-        ctx.fillStyle = "#228B22";
+        if (bambooImg.complete) {
 
-        // Top Pipe
-        ctx.fillRect(
-            pipe.x,
-            0,
-            pipeWidth,
-            pipe.top
-        );
+            // Top Pipe
+            ctx.drawImage(
+                bambooImg,
+                pipe.x,
+                0,
+                pipeWidth,
+                pipe.top
+            );
 
-        // Bottom Pipe
-        ctx.fillRect(
-            pipe.x,
-            pipe.bottom,
-            pipeWidth,
-            canvas.height - pipe.bottom
-        );
+            // Bottom Pipe
+            ctx.drawImage(
+                bambooImg,
+                pipe.x,
+                pipe.bottom,
+                pipeWidth,
+                canvas.height - pipe.bottom
+            );
 
-        // Bamboo Rings
-        ctx.strokeStyle = "#145A32";
-        ctx.lineWidth = 3;
+        } else {
 
-        // Top Pipe Rings
-        for (let y = 30; y < pipe.top; y += 35) {
+            ctx.fillStyle = "green";
 
-            ctx.beginPath();
-            ctx.moveTo(pipe.x, y);
-            ctx.lineTo(pipe.x + pipeWidth, y);
-            ctx.stroke();
+            ctx.fillRect(pipe.x,0,pipeWidth,pipe.top);
 
-        }
-
-        // Bottom Pipe Rings
-        for (let y = pipe.bottom + 30; y < canvas.height; y += 35) {
-
-            ctx.beginPath();
-            ctx.moveTo(pipe.x, y);
-            ctx.lineTo(pipe.x + pipeWidth, y);
-            ctx.stroke();
+            ctx.fillRect(
+                pipe.x,
+                pipe.bottom,
+                pipeWidth,
+                canvas.height-pipe.bottom
+            );
 
         }
 
@@ -430,3 +419,45 @@ function onResults(results) {
     }
 
 }
+// =====================================
+// PART 5 - IMAGES
+// =====================================
+
+// Bird Image
+const birdImg = new Image();
+birdImg.src = "assets/bird.png";
+
+// Background Image
+const bgImg = new Image();
+bgImg.src = "assets/background.png";
+
+// Bamboo Image
+const bambooImg = new Image();
+bambooImg.src = "assets/bamboo.png";
+    // =====================================
+// SOUND
+// =====================================
+
+const jumpSound = new Audio("assets/jump.wav");
+const hitSound = new Audio("assets/hit.wav");
+    bird.velocity = bird.jumpPower;
+jumpSound.play();
+    if(gameOver){
+
+    hitSound.play();
+
+}
+    // High Score
+
+let highScore = localStorage.getItem("highScore") || 0;
+
+if(score > highScore){
+
+    highScore = score;
+
+    localStorage.setItem("highScore",highScore);
+
+}
+    ctx.fillStyle="white";
+ctx.font="22px Arial";
+ctx.fillText("High : "+highScore,20,70);
